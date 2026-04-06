@@ -15,7 +15,7 @@ const Catalog = () => {
     <section id="catalogo" className="py-20 bg-secondary">
       <div className="container">
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">Catálogo de Precios</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4"> Servicios</h2>
           <p className="text-muted-foreground text-lg">
             Consulta nuestros precios de referencia. Para cotizaciones especiales, contáctanos.
           </p>
