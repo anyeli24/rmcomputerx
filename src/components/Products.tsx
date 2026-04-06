@@ -8,7 +8,7 @@ const Products = () => {
     <section id="productos" className="py-20">
       <div className="container">
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">Productos y Servicios</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">Productos</h2>
           <p className="text-muted-foreground text-lg">
             Explora nuestras categorías y encuentra lo que necesitas.
           </p>
