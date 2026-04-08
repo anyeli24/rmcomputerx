@@ -6,14 +6,14 @@ const Products = () => {
 
   return (
     <section id="productos" className="py-20">
-      <div className="container">
-        <div className="text-center max-w-2xl mx-auto mb-12">
+      <div className="container text-center">
+        <div className="max-w-2xl mx-auto mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">Productos</h2>
           <p className="text-muted-foreground text-lg">
             Explora nuestros productos y encuentra lo que necesitas.
           </p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
           {isLoading
             ? Array.from({ length: 4 }).map((_, i) => (
                 <div key={i} className="bg-background rounded-xl overflow-hidden shadow-sm border border-border">
