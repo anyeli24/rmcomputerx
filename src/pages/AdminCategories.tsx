@@ -9,7 +9,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Upload, Link, Trash2, ArrowLeft, LogOut } from "lucide-react";
+import { Upload, Link, ArrowLeft, LogOut } from "lucide-react";
+import CategoryItem from "@/components/admin/CategoryItem";
 import { useNavigate } from "react-router-dom";
 import type { Session } from "@supabase/supabase-js";
 import { CATEGORY_MEDIA_ACCEPT, getMediaKind, isAcceptedCategoryMedia } from "@/lib/media";
@@ -350,33 +351,7 @@ const AdminCategories = () => {
           ) : (
             <div className="divide-y divide-border">
               {categories.map((c: any) => (
-                <div key={c.id} className="py-3 flex items-center gap-4">
-                  {c.image_url ? (
-                      getMediaKind(c.image_url) === "video" ? (
-                        <video
-                          src={c.image_url}
-                          muted
-                          loop
-                          autoPlay
-                          playsInline
-                          className="w-14 h-14 rounded-lg object-cover border border-border flex-shrink-0"
-                        />
-                      ) : (
-                        <img src={c.image_url} alt={c.title} className="w-14 h-14 rounded-lg object-cover border border-border flex-shrink-0" />
-                      )
-                  ) : (
-                    <div className="w-14 h-14 rounded-lg bg-muted flex items-center justify-center text-xs text-muted-foreground flex-shrink-0">
-                      Sin img
-                    </div>
-                  )}
-                  <div className="flex-1 min-w-0">
-                    <p className="font-medium text-foreground truncate">{c.title}</p>
-                    {c.description && <p className="text-xs text-muted-foreground truncate">{c.description}</p>}
-                  </div>
-                  <Button variant="ghost" size="icon" onClick={() => handleDelete(c.id)} className="text-destructive hover:text-destructive flex-shrink-0">
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </div>
+                <CategoryItem key={c.id} category={c} onDelete={handleDelete} />
               ))}
             </div>
           )}
