@@ -13,6 +13,7 @@ import { Upload, Link, Trash2, ArrowLeft, LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import type { Session } from "@supabase/supabase-js";
 import { CATEGORY_MEDIA_ACCEPT, getMediaKind, isAcceptedCategoryMedia } from "@/lib/media";
+const ADMIN_EMAIL = "rmcomputerxp@gmail.com";
 
 const AdminCategories = () => {
   const { data: categories, isLoading } = useCategories();
@@ -159,15 +160,16 @@ const AdminCategories = () => {
   };
 
   const handleGoogleSignIn = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: `${window.location.origin}/admin`,
-      },
+    const result = await lovable.auth.signInWithOAuth("google", {
+      redirect_uri: window.location.origin + "/admin",
     });
 
-    if (error) {
-      toast.error(error.message || "No se pudo iniciar sesión");
+    if (result.error) {
+      toast.error(result.error.message || "No se pudo iniciar sesión");
+    }
+
+    if (result.redirected) {
+      return;
     }
   };
 
