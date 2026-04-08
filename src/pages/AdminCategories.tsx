@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useCategories } from "@/hooks/use-site-data";
 import { supabase } from "@/integrations/supabase/client";
+import { lovable } from "@/integrations/lovable/index";
 import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,6 +13,7 @@ import { Upload, Link, Trash2, ArrowLeft, LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import type { Session } from "@supabase/supabase-js";
 import { CATEGORY_MEDIA_ACCEPT, getMediaKind, isAcceptedCategoryMedia } from "@/lib/media";
+const ADMIN_EMAIL = "rmcomputerxp@gmail.com";
 
 const AdminCategories = () => {
   const { data: categories, isLoading } = useCategories();
@@ -158,15 +160,16 @@ const AdminCategories = () => {
   };
 
   const handleGoogleSignIn = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: `${window.location.origin}/admin`,
-      },
+    const result = await lovable.auth.signInWithOAuth("google", {
+      redirect_uri: window.location.origin + "/admin",
     });
 
-    if (error) {
-      toast.error(error.message || "No se pudo iniciar sesión");
+    if (result.error) {
+      toast.error(result.error.message || "No se pudo iniciar sesión");
+    }
+
+    if (result.redirected) {
+      return;
     }
   };
 
@@ -215,7 +218,9 @@ const AdminCategories = () => {
     );
   }
 
-  if (!session) {
+  const isAdmin = session?.user?.email === ADMIN_EMAIL;
+
+  if (!session || !isAdmin) {
     return (
       <div className="min-h-screen bg-secondary p-4 sm:p-8">
         <div className="max-w-md mx-auto space-y-6">
@@ -227,13 +232,27 @@ const AdminCategories = () => {
           </div>
 
           <div className="bg-background rounded-xl border border-border p-6 space-y-4 text-center">
-            <h2 className="text-xl font-semibold text-foreground">Inicia sesión para administrar categorías</h2>
-            <p className="text-sm text-muted-foreground">
-              Necesitas una sesión con Google para agregar, eliminar y subir archivos al panel administrativo.
-            </p>
-            <Button onClick={handleGoogleSignIn} className="w-full">
-              Continuar con Google
-            </Button>
+            {session && !isAdmin ? (
+              <>
+                <h2 className="text-xl font-semibold text-foreground">Acceso denegado</h2>
+                <p className="text-sm text-muted-foreground">
+                  Tu cuenta no tiene permisos para acceder al panel administrativo.
+                </p>
+                <Button variant="outline" onClick={handleSignOut} className="w-full gap-2">
+                  <LogOut className="h-4 w-4" /> Cerrar sesión
+                </Button>
+              </>
+            ) : (
+              <>
+                <h2 className="text-xl font-semibold text-foreground">Inicia sesión para administrar categorías</h2>
+                <p className="text-sm text-muted-foreground">
+                  Necesitas una sesión con Google para agregar, eliminar y subir archivos al panel administrativo.
+                </p>
+                <Button onClick={handleGoogleSignIn} className="w-full">
+                  Continuar con Google
+                </Button>
+              </>
+            )}
           </div>
         </div>
       </div>
