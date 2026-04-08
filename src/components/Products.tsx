@@ -26,15 +26,19 @@ const Products = () => {
               ))
             : categories?.map((c: any) => (
                 <div key={c.id} className="group bg-background rounded-xl overflow-hidden shadow-sm border border-border hover:shadow-lg transition-shadow duration-300">
-                  <div className="aspect-square overflow-hidden">
-                    <img
-                      src={c.image_url}
-                      alt={c.title}
-                      loading="lazy"
-                      width={640}
-                      height={640}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
+                  <div className="aspect-square overflow-hidden bg-muted">
+                    {c.image_url ? (
+                      <img
+                        src={c.image_url}
+                        alt={c.title}
+                        loading="lazy"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-muted-foreground text-sm">
+                        Sin imagen
+                      </div>
+                    )}
                   </div>
                   <div className="p-5">
                     <h3 className="font-semibold text-foreground text-lg mb-2">{c.title}</h3>
