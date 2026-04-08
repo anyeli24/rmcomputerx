@@ -256,8 +256,6 @@ const AdminCategories = () => {
           </div>
         </div>
       </div>
-    );
-    );
   }
 
   return (
