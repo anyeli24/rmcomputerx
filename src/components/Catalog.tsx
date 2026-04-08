@@ -13,8 +13,8 @@ const Catalog = () => {
 
   return (
     <section id="catalogo" className="py-20 bg-secondary">
-      <div className="container">
-        <div className="text-center max-w-2xl mx-auto mb-12">
+      <div className="container text-center">
+        <div className="max-w-2xl mx-auto mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4"> Servicios</h2>
           <p className="text-muted-foreground text-lg">
             Consulta nuestros servicios. Para cotizaciones especiales, contáctanos.
@@ -33,21 +33,21 @@ const Catalog = () => {
                 <table className="w-full">
                   <thead>
                     <tr className="border-b border-border bg-muted/50">
-                      <th className="text-left px-6 py-4 text-sm font-semibold text-foreground">Producto</th>
-                      <th className="text-left px-6 py-4 text-sm font-semibold text-foreground">Categoría</th>
-                      <th className="text-right px-6 py-4 text-sm font-semibold text-foreground">Precio</th>
+                      <th className="px-6 py-4 text-sm font-semibold text-foreground text-center">Servicio</th>
+                      <th className="px-6 py-4 text-sm font-semibold text-foreground text-center">Categoría</th>
+                      <th className="px-6 py-4 text-sm font-semibold text-foreground text-center">Precio</th>
                     </tr>
                   </thead>
                   <tbody>
                     {items?.map((item: any) => (
                       <tr key={item.id} className="border-b border-border last:border-0 hover:bg-muted/30 transition-colors">
-                        <td className="px-6 py-4 text-sm text-foreground font-medium">{item.name}</td>
-                        <td className="px-6 py-4">
-                          <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${categoryColors[item.category] || ""}`}>
+                        <td className="px-6 py-4 text-sm text-foreground font-medium text-center">{item.name}</td>
+                        <td className="px-6 py-4 text-center">
+                          <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#73dee8]">
                             {item.category}
                           </span>
                         </td>
-                        <td className="px-6 py-4 text-sm text-right font-semibold text-primary">
+                        <td className="px-6 py-4 text-sm font-semibold text-primary text-center">
                           {item.price || <span className="text-muted-foreground font-normal">Consultar</span>}
                         </td>
                       </tr>
