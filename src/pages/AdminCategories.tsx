@@ -218,7 +218,9 @@ const AdminCategories = () => {
     );
   }
 
-  if (!session) {
+  const isAdmin = session?.user?.email === ADMIN_EMAIL;
+
+  if (!session || !isAdmin) {
     return (
       <div className="min-h-screen bg-secondary p-4 sm:p-8">
         <div className="max-w-md mx-auto space-y-6">
@@ -230,16 +232,31 @@ const AdminCategories = () => {
           </div>
 
           <div className="bg-background rounded-xl border border-border p-6 space-y-4 text-center">
-            <h2 className="text-xl font-semibold text-foreground">Inicia sesión para administrar categorías</h2>
-            <p className="text-sm text-muted-foreground">
-              Necesitas una sesión con Google para agregar, eliminar y subir archivos al panel administrativo.
-            </p>
-            <Button onClick={handleGoogleSignIn} className="w-full">
-              Continuar con Google
-            </Button>
+            {session && !isAdmin ? (
+              <>
+                <h2 className="text-xl font-semibold text-foreground">Acceso denegado</h2>
+                <p className="text-sm text-muted-foreground">
+                  Tu cuenta no tiene permisos para acceder al panel administrativo.
+                </p>
+                <Button variant="outline" onClick={handleSignOut} className="w-full gap-2">
+                  <LogOut className="h-4 w-4" /> Cerrar sesión
+                </Button>
+              </>
+            ) : (
+              <>
+                <h2 className="text-xl font-semibold text-foreground">Inicia sesión para administrar categorías</h2>
+                <p className="text-sm text-muted-foreground">
+                  Necesitas una sesión con Google para agregar, eliminar y subir archivos al panel administrativo.
+                </p>
+                <Button onClick={handleGoogleSignIn} className="w-full">
+                  Continuar con Google
+                </Button>
+              </>
+            )}
           </div>
         </div>
       </div>
+    );
     );
   }
 
