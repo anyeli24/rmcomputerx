@@ -3,7 +3,7 @@ import { useSiteContent } from "@/hooks/use-site-data";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const features = [
-  { icon: <Star className="w-6 h-6" />, title: "Variedad", desc: "Amplio catálogo de productos tecnológicos y de papelería." },
+  { icon: <Star className="w-6 h-6" />, title: "Variedad", desc: "Amplio catálogo de productos de papelería y tecnológicos." },
   { icon: <ShieldCheck className="w-6 h-6" />, title: "Calidad", desc: "Productos de marcas reconocidas con garantía de calidad." },
   { icon: <Users className="w-6 h-6" />, title: "Atención", desc: "Servicio personalizado y asesoría para cada cliente." },
   { icon: <Heart className="w-6 h-6" />, title: "Comunidad", desc: "Comprometidos con el desarrollo de nuestra comunidad local en Maimón." },
@@ -23,7 +23,7 @@ const About = () => {
             <Skeleton className="h-20 w-full" />
           ) : (
             <p
-              className="text-muted-foreground text-lg"
+              className="text-muted-foreground text-lg text-center"
               dangerouslySetInnerHTML={{ __html: content?.about_text || "" }}
             />
           )}
