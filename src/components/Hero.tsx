@@ -27,8 +27,8 @@ const Hero = () => {
           ) : (
             logoUrl && <img src={logoUrl} alt="RM COMPUTER" className="h-24 w-24 rounded-2xl shadow-lg border-2 border-primary/30" />
           )}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-dark-foreground leading-tight">
-            RM <span className="text-primary">COMPUTER</span>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-primary">
+            RM <span className="text-destructive-foreground">COMPUTER</span>
           </h1>
           {loadingContent ? (
             <Skeleton className="h-8 w-96" />
