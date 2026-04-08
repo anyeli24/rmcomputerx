@@ -1,5 +1,6 @@
 import { useCategories } from "@/hooks/use-site-data";
 import { Skeleton } from "@/components/ui/skeleton";
+import { getMediaKind } from "@/lib/media";
 
 const Products = () => {
   const { data: categories, isLoading } = useCategories();
@@ -28,12 +29,24 @@ const Products = () => {
                 <div key={c.id} className="group bg-background rounded-xl overflow-hidden shadow-sm border border-border hover:shadow-lg transition-shadow duration-300">
                   <div className="aspect-square overflow-hidden bg-muted">
                     {c.image_url ? (
-                      <img
-                        src={c.image_url}
-                        alt={c.title}
-                        loading="lazy"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
+                      getMediaKind(c.image_url) === "video" ? (
+                        <video
+                          src={c.image_url}
+                          muted
+                          loop
+                          autoPlay
+                          playsInline
+                          preload="metadata"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      ) : (
+                        <img
+                          src={c.image_url}
+                          alt={c.title}
+                          loading="lazy"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      )
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-muted-foreground text-sm">
                         Sin imagen
