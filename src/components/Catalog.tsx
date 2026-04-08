@@ -1,13 +1,6 @@
 import { useCatalogItems } from "@/hooks/use-site-data";
 import { Skeleton } from "@/components/ui/skeleton";
 
-const categoryColors: Record<string, string> = {
-  Escolar: "bg-primary/10 text-primary",
-  Manualidades: "bg-accent/10 text-accent",
-  Tecnología: "bg-foreground/10 text-foreground",
-  Servicios: "bg-whatsapp/10 text-whatsapp",
-};
-
 const Catalog = () => {
   const { data: items, isLoading } = useCatalogItems();
 
@@ -35,7 +28,6 @@ const Catalog = () => {
                     <tr className="border-b border-border bg-muted/50">
                       <th className="px-6 py-4 text-sm font-semibold text-foreground text-center">Servicio</th>
                       <th className="px-6 py-4 text-sm font-semibold text-foreground text-center">Categoría</th>
-                      <th className="px-6 py-4 text-sm font-semibold text-foreground text-center">Precio</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -47,9 +39,6 @@ const Catalog = () => {
                             {item.category}
                           </span>
                         </td>
-                        <td className="px-6 py-4 text-sm font-semibold text-primary text-center">
-                          {item.price || <span className="text-muted-foreground font-normal">Consultar</span>}
-                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -60,15 +49,10 @@ const Catalog = () => {
               <div className="md:hidden divide-y divide-border">
                 {items?.map((item: any) => (
                   <div key={item.id} className="p-4 flex items-center justify-between gap-3">
-                    <div>
-                      <p className="text-sm font-medium text-foreground">{item.name}</p>
-                      <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${categoryColors[item.category] || ""}`}>
-                        {item.category}
-                      </span>
-                    </div>
-                    <p className="text-sm font-semibold text-primary whitespace-nowrap">
-                      {item.price || <span className="text-muted-foreground font-normal">Consultar</span>}
-                    </p>
+                    <p className="text-sm font-medium text-foreground">{item.name}</p>
+                    <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#73dee8] whitespace-nowrap">
+                      {item.category}
+                    </span>
                   </div>
                 ))}
               </div>
