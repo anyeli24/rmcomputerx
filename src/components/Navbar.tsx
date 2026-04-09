@@ -22,7 +22,7 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border shadow-sm">
       <div className="container flex items-center justify-between h-16">
         <a href="#inicio" className="flex items-center gap-2">
-          {logoUrl && <img src={logoUrl} alt="RM COMPUTER logo" className="h-10 w-10 rounded-md object-cover" />}
+          {logoUrl && <img src={logoUrl} alt="RM COMPUTER logo" className="h-12 w-12 sm:h-14 sm:w-14 rounded-lg object-contain" />}
           <span className="font-bold text-lg text-foreground hidden sm:inline">RM COMPUTER</span>
         </a>
 
