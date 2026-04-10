@@ -32,7 +32,7 @@ const Catalog = () => {
                   </thead>
                   <tbody>
                     {items?.map((item: any) => (
-                      <tr key={item.id} id={`service-${item.id}`} className="border-b border-border last:border-0 hover:bg-muted/30 transition-all duration-300">
+                      <tr key={item.id} data-service-id={item.id} className="border-b border-border last:border-0 hover:bg-muted/30 transition-all duration-300">
                         <td className="px-6 py-4 text-sm text-foreground font-medium text-center">{item.name}</td>
                         <td className="px-6 py-4 text-center">
                           <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#73dee8]">
