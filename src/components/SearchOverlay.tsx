@@ -101,17 +101,29 @@ const SearchOverlay = ({ open, onClose }: SearchOverlayProps) => {
   const handleResultClick = (result: SearchResult) => {
     onClose();
 
-    const prefix = result.type === "producto" ? "product" : "service";
-    const elId = `${prefix}-${result.id}`;
-
     requestAnimationFrame(() => {
-      const el = document.getElementById(elId);
+      let el: Element | null = null;
+
+      if (result.type === "producto") {
+        el = document.getElementById(`product-${result.id}`);
+      } else {
+        // Use data attribute to find the visible service element (avoids duplicate ID issue on mobile)
+        const candidates = document.querySelectorAll(`[data-service-id="${result.id}"]`);
+        for (const candidate of candidates) {
+          if ((candidate as HTMLElement).offsetParent !== null) {
+            el = candidate;
+            break;
+          }
+        }
+        // Fallback to first match
+        if (!el && candidates.length > 0) el = candidates[0];
+      }
+
       if (el) {
         el.scrollIntoView({ behavior: "smooth", block: "center" });
         el.classList.add("search-highlight");
-        setTimeout(() => el.classList.remove("search-highlight"), 2000);
+        setTimeout(() => el!.classList.remove("search-highlight"), 2000);
       } else {
-        // Fallback: scroll to section
         const section = document.getElementById(result.type === "producto" ? "productos" : "catalogo");
         section?.scrollIntoView({ behavior: "smooth" });
       }
