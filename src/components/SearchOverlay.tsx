@@ -4,10 +4,10 @@ import { useCategories, useCatalogItems } from "@/hooks/use-site-data";
 
 interface SearchResult {
   type: "producto" | "servicio";
+  id: string;
   name: string;
   description?: string;
   category?: string;
-  sectionId: string;
 }
 
 interface SearchOverlayProps {
@@ -74,9 +74,9 @@ const SearchOverlay = ({ open, onClose }: SearchOverlayProps) => {
       ) {
         res.push({
           type: "producto",
+          id: c.id,
           name: c.title,
           description: c.description,
-          sectionId: "productos",
         });
       }
     });
@@ -88,9 +88,9 @@ const SearchOverlay = ({ open, onClose }: SearchOverlayProps) => {
       ) {
         res.push({
           type: "servicio",
+          id: item.id,
           name: item.name,
           category: item.category,
-          sectionId: "catalogo",
         });
       }
     });
@@ -98,10 +98,24 @@ const SearchOverlay = ({ open, onClose }: SearchOverlayProps) => {
     return res;
   })();
 
-  const handleResultClick = (sectionId: string) => {
+  const handleResultClick = (result: SearchResult) => {
     onClose();
-    const el = document.getElementById(sectionId);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+
+    const prefix = result.type === "producto" ? "product" : "service";
+    const elId = `${prefix}-${result.id}`;
+
+    requestAnimationFrame(() => {
+      const el = document.getElementById(elId);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+        el.classList.add("search-highlight");
+        setTimeout(() => el.classList.remove("search-highlight"), 2000);
+      } else {
+        // Fallback: scroll to section
+        const section = document.getElementById(result.type === "producto" ? "productos" : "catalogo");
+        section?.scrollIntoView({ behavior: "smooth" });
+      }
+    });
   };
 
   if (!open) return null;
@@ -110,7 +124,6 @@ const SearchOverlay = ({ open, onClose }: SearchOverlayProps) => {
     <div className="fixed inset-0 z-[60] bg-background/80 backdrop-blur-sm animate-in fade-in duration-200">
       <div ref={containerRef} className="container max-w-2xl mx-auto pt-20 px-4">
         <div className="bg-background rounded-xl border border-border shadow-2xl overflow-hidden animate-in slide-in-from-top-4 duration-300">
-          {/* Input */}
           <div className="flex items-center gap-3 px-4 py-3 border-b border-border">
             <Search className="h-5 w-5 text-muted-foreground shrink-0" />
             <input
@@ -126,7 +139,6 @@ const SearchOverlay = ({ open, onClose }: SearchOverlayProps) => {
             </button>
           </div>
 
-          {/* Results */}
           <div className="max-h-[60vh] overflow-y-auto">
             {query.trim() === "" ? (
               <div className="p-6 text-center text-sm text-muted-foreground">
@@ -141,7 +153,7 @@ const SearchOverlay = ({ open, onClose }: SearchOverlayProps) => {
                 {results.map((r, i) => (
                   <li key={i}>
                     <button
-                      onClick={() => handleResultClick(r.sectionId)}
+                      onClick={() => handleResultClick(r)}
                       className="w-full text-left px-4 py-3 hover:bg-muted/50 transition-colors flex items-start gap-3"
                     >
                       <span className="mt-0.5 text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary shrink-0">

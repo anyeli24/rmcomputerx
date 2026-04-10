@@ -26,7 +26,7 @@ const Products = () => {
                 </div>
               ))
             : categories?.map((c: any) => (
-                <div key={c.id} className="group bg-background rounded-xl overflow-hidden shadow-sm border border-border hover:shadow-lg transition-shadow duration-300">
+                <div key={c.id} id={`product-${c.id}`} className="group bg-background rounded-xl overflow-hidden shadow-sm border border-border hover:shadow-lg transition-all duration-300">
                   <div className="aspect-square overflow-hidden bg-muted">
                     {c.image_url ? (
                       getMediaKind(c.image_url) === "video" ? (
