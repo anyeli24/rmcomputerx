@@ -48,7 +48,7 @@ const Catalog = () => {
               {/* Mobile cards */}
               <div className="md:hidden divide-y divide-border">
                 {items?.map((item: any) => (
-                  <div key={item.id} id={`service-${item.id}`} className="p-4 flex items-center justify-between gap-3 transition-all duration-300">
+                  <div key={item.id} data-service-id={item.id} className="p-4 flex items-center justify-between gap-3 transition-all duration-300">
                     <p className="text-sm font-medium text-foreground">{item.name}</p>
                     <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#73dee8] whitespace-nowrap">
                       {item.category}
