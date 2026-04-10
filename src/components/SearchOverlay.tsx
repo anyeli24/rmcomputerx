@@ -4,10 +4,10 @@ import { useCategories, useCatalogItems } from "@/hooks/use-site-data";
 
 interface SearchResult {
   type: "producto" | "servicio";
+  id: string;
   name: string;
   description?: string;
   category?: string;
-  sectionId: string;
 }
 
 interface SearchOverlayProps {
