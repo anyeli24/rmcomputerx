@@ -242,7 +242,7 @@ const AdminCategories = () => {
     );
   }
 
-  const isAdmin = session?.user?.email === ADMIN_EMAIL;
+  const isAdmin = session?.user?.email ? ADMIN_EMAILS.includes(session.user.email) : false;
 
   if (!session || !isAdmin) {
     return (
