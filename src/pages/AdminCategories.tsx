@@ -32,7 +32,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 
-const ADMIN_EMAIL = "rmcomputerxp@gmail.com";
+const ADMIN_EMAILS = ["rmcomputerxp@gmail.com", "anyelinaguillermo4@gmail.com"];
 
 const AdminCategories = () => {
   const { data: categories, isLoading } = useCategories();
